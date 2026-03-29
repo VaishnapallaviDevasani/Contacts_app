@@ -19,10 +19,12 @@ export default function SignupPage() {
     setError('');
     setLoading(true);
     try {
-      await signup(username, email, password);
+      const data = await signup(username, email, password);
+  
       navigate('/login');
     } catch (err) {
       const data = err.response?.data;
+
       if (data?.fieldErrors) {
         setError(Object.values(data.fieldErrors).join(', '));
       } else {

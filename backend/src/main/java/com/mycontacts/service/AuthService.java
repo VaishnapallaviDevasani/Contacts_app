@@ -35,7 +35,9 @@ public class AuthService {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new IllegalArgumentException("Username is already taken");
         }
-
+        if (request.getUsername().contains("@")) {
+            throw new IllegalArgumentException("Username cannot contain '@' character");
+        }
         User user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
@@ -59,6 +61,7 @@ public class AuthService {
             // Store user info in session for easy retrieval
             User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
+            
             session.setAttribute("userId", user.getId());
             session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 

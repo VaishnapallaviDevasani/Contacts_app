@@ -1,0 +1,5 @@
+# Maven build directory
+target/
+
+# Application properties (contains sensitive data)
+src/main/resources/application.properties
