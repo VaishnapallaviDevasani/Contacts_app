@@ -1,0 +1,5 @@
+# Ignore application.properties
+resources/application.properties
+
+# Ignore build output
+../../../target/
