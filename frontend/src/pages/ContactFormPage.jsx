@@ -53,6 +53,7 @@ export default function ContactFormPage() {
   }, [id, isEdit]);
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     setError('');
 
@@ -61,6 +62,19 @@ export default function ContactFormPage() {
     if (validPhones.length === 0) {
       setError('At least one phone number is required');
       return;
+    }
+
+    // Validate phone number length (must be exactly 10 digits)
+    for (const p of validPhones) {
+      const digits = p.phoneNumber.replace(/\D/g, '');
+      if (digits.length !== 10) {
+        setError('Phone number must be exactly 10 digits.');
+        return;
+      }
+      if (digits.startsWith('0')) {
+        setError('Phone number cannot start with 0.');
+        return;
+      }
     }
 
     setLoading(true);
